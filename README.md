@@ -3,8 +3,8 @@
 # TO-DO
 - [ ] Display the cards on the page
   - [ ] shuffle the list of cards using the provided "shuffle" method below
-  - [ ] loop through each card and create its HTML
-  - [ ] add each card's HTML to the page
+  - [x] loop through each card and create its HTML
+  - [x] add each card's HTML to the page
 - [ ] set up the event listener for a card. If a card is clicked:
 - [ ] display the card's symbol (put this functionality in another function that you call from this one)
 - [ ] add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)

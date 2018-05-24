@@ -1,3 +1,4 @@
+const container = document.querySelector('.deck')
 /*
  * Create a list that holds all of your cards
  */
@@ -12,7 +13,15 @@ const deck = [
   'fa fa-bomb', 'fa fa-bomb'
 ]
 
-// funciton to crate a ul
+function displayCards () {
+  for (let i = 0; i < deck.length; i++) {
+    const card = document.createElement('li')
+    card.classList.add('cards')
+    card.innerHTML = `<i class="${deck[i]}"></i>`
+    container.appendChild(card)
+  }
+}
+displayCards()
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -22,7 +31,9 @@ const deck = [
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle (array) {
-  var currentIndex = array.length, temporaryValue, randomIndex
+  let currentIndex = array.length
+  let temporaryValue
+  let randomIndex
 
   while (currentIndex !== 0) {
     randomIndex = Math.floor(Math.random() * currentIndex)
