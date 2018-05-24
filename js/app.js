@@ -19,7 +19,16 @@ function displayCards () {
     card.classList.add('cards')
     card.innerHTML = `<i class="${deck[i]}"></i>`
     container.appendChild(card)
+    click(card)
   }
+}
+function click (target) {
+  target.addEventListener('click', function (event) {
+    showCard(this)
+  })
+}
+function showCard (card) {
+  card.classList.add('open', 'show')
 }
 displayCards()
 /*
