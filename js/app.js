@@ -2,33 +2,51 @@ const container = document.querySelector('.deck')
 /*
  * Create a list that holds all of your cards
  */
-const deck = [
-  'fa fa-paper-plane-o', 'fa fa-paper-plane-o',
-  'fa fa-diamond', 'fa fa-diamond',
-  'fa fa-bicycle', 'fa fa-bicycle',
-  'fa fa-anchor', 'fa fa-anchor',
-  'fa fa-bolt', 'fa fa-bolt',
-  'fa fa-cube', 'fa fa-cube',
-  'fa fa-leaf', 'fa fa-leaf',
-  'fa fa-bomb', 'fa fa-bomb'
-]
+const deck = ['fa fa-paper-plane-o', 'fa fa-paper-plane-o', 'fa fa-diamond', 'fa fa-diamond', 'fa fa-bicycle', 'fa fa-bicycle', 'fa fa-anchor', 'fa fa-anchor', 'fa fa-bolt', 'fa fa-bolt', 'fa fa-cube', 'fa fa-cube', 'fa fa-leaf', 'fa fa-leaf', 'fa fa-bomb', 'fa fa-bomb']
 
-function displayCards () {
-  for (let i = 0; i < deck.length; i++) {
-    const card = document.createElement('li')
-    card.classList.add('cards')
-    card.innerHTML = `<i class="${deck[i]}"></i>`
-    container.appendChild(card)
-    click(card)
-  }
+function displayCards() {
+
+    for (let i = 0; i < deck.length; i++) {
+        const card = document.createElement('li')
+        card.classList.add('card')
+        card.innerHTML = `<i class="${deck[i]}"></i>`
+        container.appendChild(card)
+        click(card)
+    }
+
+    //     const card = document.getElementsByClassName('card');
+
 }
-function click (target) {
-  target.addEventListener('click', function (event) {
-    showCard(this)
-  })
+
+function click(target) {
+    target.addEventListener('click', function(event) {
+        showCard(this)
+        
+    })
 }
-function showCard (card) {
-  card.classList.add('open', 'show')
+function openCards(card) {
+    const openCards = []
+    let firstCard = openCards[0];
+    let secondCard = card.innerHTML
+    if (openCards.length === 1) {
+        if (firstCard === secondCard) {
+            card.classList.add('match')
+            console.log(card)
+        } else {
+            openCards.pop();
+        }
+    } else {
+        openCards.push(card)
+    }
+    console.log(card)
+
+}
+
+//     openCards(card)
+
+function showCard(card) {
+    card.classList.add('open', 'show')
+    openCards(card)
 }
 displayCards()
 /*
@@ -39,20 +57,20 @@ displayCards()
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle (array) {
-  let currentIndex = array.length
-  let temporaryValue
-  let randomIndex
+function shuffle(array) {
+    let currentIndex = array.length
+    let temporaryValue
+    let randomIndex
 
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex)
-    currentIndex -= 1
-    temporaryValue = array[currentIndex]
-    array[currentIndex] = array[randomIndex]
-    array[randomIndex] = temporaryValue
-  }
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex)
+        currentIndex -= 1
+        temporaryValue = array[currentIndex]
+        array[currentIndex] = array[randomIndex]
+        array[randomIndex] = temporaryValue
+    }
 
-  return array
+    return array
 }
 
 /*
