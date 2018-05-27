@@ -18,7 +18,10 @@ const deck = [
 ];
 
 let openCards = [];
+let count = 0;
+let matchCounter = 0;
 
+const counter = document.querySelector('.moves')
 const container = document.querySelector(".deck");
 
 function displayCards() {
@@ -32,6 +35,7 @@ function displayCards() {
 }
 function click(target) {
   target.addEventListener("click", function(event) {
+    moves();
     showCard(this);
     compare(this);
   });
@@ -40,19 +44,33 @@ function compare(card) {
   if (openCards.length === 1) {
     if (openCards[0].innerHTML === card.innerHTML) {
       openCards[0].classList.add("match");
-      card.classList.add("match");
+      card.classList.add("match", 'disabled');
       openCards = [];
+      matchCounterFn();
     } else {
       setTimeout(function() {
         card.classList.remove("show", "open");
       }, 500);
     }
   } else {
+    card.classList.add('disabled');
     openCards.push(card);
   }
 }
+
 function showCard(card) {
   card.classList.add("open", "show");
+}
+
+function moves () {
+  
+  count += 1;
+  counter.innerHTML = count;
+}
+
+function matchCounterFn (){
+  matchCounter += 1;
+  console.log(matchCounter)
 }
 
 displayCards();
