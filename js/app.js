@@ -20,16 +20,22 @@ const deck = [
 let openCards = [];
 let count = 0;
 let matchCounter = 0;
+let starCount = 0;
 
-const counter = document.querySelector('.moves')
-const container = document.querySelector(".deck");
+const counter = document.querySelector(".moves");
+const container = document.querySelector(".container");
+// const container = document.querySelector(".deck");
 
 function displayCards() {
+  const deckUl = document.createElement("ul");
+  deckUl.classList.add("deck");
+  container.appendChild(deckUl);
+
   for (let i = 0; i < deck.length; i++) {
     const card = document.createElement("li");
     card.classList.add("card");
     card.innerHTML = `<i class="${deck[i]}"></i>`;
-    container.appendChild(card);
+    deckUl.appendChild(card);
     click(card);
   }
 }
@@ -44,7 +50,7 @@ function compare(card) {
   if (openCards.length === 1) {
     if (openCards[0].innerHTML === card.innerHTML) {
       openCards[0].classList.add("match");
-      card.classList.add("match", 'disabled');
+      card.classList.add("match", "disabled");
       openCards = [];
       matchCounterFn();
     } else {
@@ -53,7 +59,7 @@ function compare(card) {
       }, 500);
     }
   } else {
-    card.classList.add('disabled');
+    card.classList.add("disabled");
     openCards.push(card);
   }
 }
@@ -62,17 +68,31 @@ function showCard(card) {
   card.classList.add("open", "show");
 }
 
-function moves () {
-  
+function moves() {
   count += 1;
   counter.innerHTML = count;
 }
 
-function matchCounterFn (){
+function matchCounterFn() {
   matchCounter += 1;
-  console.log(matchCounter)
+  console.log(matchCounter);
 }
 
+function restart() {
+  let restart = document.querySelector(".restart");
+  restart.addEventListener("click", function() {
+    if (container.querySelector('.deck')){
+      container.removeChild(container.querySelector('.deck'));
+      displayCards();
+    } else {
+          displayCards();
+
+    }
+      
+
+  });
+}
+restart();
 displayCards();
 
 function shuffle(array) {
