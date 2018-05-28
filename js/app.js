@@ -27,6 +27,7 @@ const container = document.querySelector(".container");
 // const container = document.querySelector(".deck");
 
 function displayCards() {
+  rsetCounters();
   const deckUl = document.createElement("ul");
   deckUl.classList.add("deck");
   container.appendChild(deckUl);
@@ -71,6 +72,7 @@ function showCard(card) {
 function moves() {
   count += 1;
   counter.innerHTML = count;
+  removeStar();
 }
 
 function matchCounterFn() {
@@ -81,16 +83,35 @@ function matchCounterFn() {
 function restart() {
   let restart = document.querySelector(".restart");
   restart.addEventListener("click", function() {
-    if (container.querySelector('.deck')){
-      container.removeChild(container.querySelector('.deck'));
+    if (container.querySelector(".deck")) {
+      container.removeChild(container.querySelector(".deck"));
       displayCards();
     } else {
-          displayCards();
-
+      displayCards();
     }
-      
-
   });
+}
+
+function removeStar() {
+  const stars = document.querySelector(".stars");
+  const star = '<li><i class="fa fa-star"></i></li>';
+  count < 10
+    ? (stars.innerHTML = star.repeat(3))
+    : count < 15
+      ? (stars.innerHTML = star.repeat(2))
+      : count < 20
+        ? (stars.innerHTML = star.repeat(1))
+        : count < 25
+          ? (stars.innerHTML = star.repeat(0))
+          : (stars.innerHTML = star.repeat(0));
+}
+
+function rsetCounters() {
+  count = 0;
+  matchCounter = 0;
+  starCount = 0;
+  counter.innerHTML = count
+  removeStar()
 }
 restart();
 displayCards();
