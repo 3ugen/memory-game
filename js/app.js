@@ -1,4 +1,4 @@
-const deck = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
+const cards = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
 
 let openCards = [];
 let count = 0;
@@ -18,7 +18,7 @@ const container = document.querySelector(".container");
 
 function displayCards() {
     rsetCounters();
-
+    let deck = shuffle(cards);
     const deckUl = document.createElement("ul");
     deckUl.classList.add("deck");
     container.appendChild(deckUl);
@@ -124,17 +124,17 @@ function shuffle(array) {
 }
 
 function timer () {
-    tens++; 
-    
+    tens++;
+
 //     if(tens < 9){
 //       time.innerHTML = "0" + tens;
 //     }
-    
+
 //     if (tens > 9){
 //       time.innerHTML = tens;
-      
-//     } 
-    
+
+//     }
+
     if (tens > 99) {
       console.log("seconds");
       seconds++;
@@ -142,7 +142,7 @@ function timer () {
       tens = 0;
 //       appendTens.innerHTML = "0" + 0;
     }
-    
+
     if (seconds > 9){
       sec.innerHTML = seconds;
     }
