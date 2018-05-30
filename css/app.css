@@ -37,6 +37,23 @@ h1 {
  * Styles for the deck of cards
  */
 
+.modal {
+/*     width: 460px; */
+    min-height: 380px;
+/*     background: linear-gradient(160deg, #00BCD4 0%, #607D8B 100%); */
+    padding: 32px;
+    border-radius: 10px;
+/*     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5); */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 3em;
+    font-size: xx-large;
+    font-weight: 700;
+}
+
 .deck {
     width: 660px;
     min-height: 680px;
