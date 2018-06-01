@@ -1,236 +1,247 @@
 /*jshint esversion: 6 */
-document.addEventListener(
-  "DOMContentLoaded",
-  function() {
-    const deck = [
-      "fa fa-paper-plane-o",
-      "fa fa-paper-plane-o",
-      "fa fa-diamond",
-      "fa fa-diamond",
-      "fa fa-bicycle",
-      "fa fa-bicycle",
-      "fa fa-anchor",
-      "fa fa-anchor",
-      "fa fa-bolt",
-      "fa fa-bolt",
-      "fa fa-cube",
-      "fa fa-cube",
-      "fa fa-leaf",
-      "fa fa-leaf",
-      "fa fa-bomb",
-      "fa fa-bomb"
-    ];
-    let timer = new Timer();
-    let openCards = [];
-    let count = 0;
-    let matchCounter = 0;
-    let starCount = 0;
-    let tens = 0;
-    let seconds = 0;
-    let minutes = 0;
-    const h1 = document.querySelector("h1");
-    const sec = document.querySelector("#seconds");
-    const min = document.querySelector("#minutes");
-    const stars = document.querySelector(".stars");
-    const gameTimer = document.querySelector("#gameTimer");
-    const counter = document.querySelector(".moves");
-    const container = document.querySelector(".container");
-    // const container = document.querySelector(".deck");
-    function showTimer() {
-      timer.start();
-      console.log("oohhoooohhohoho");
-      timer.addEventListener("secondsUpdated", function(e) {
-        gameTimer.innerHTML = timer.getTimeValues().toString();
-      });
-    }
+document.addEventListener("DOMContentLoaded", function() {
+  const cards = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
+  // let timer = new Timer();
 
-    function displayCards() {
-      rsetCounters();
-      // let deck = shuffle(cards);
-      const deckUl = document.createElement("ul");
-      deckUl.classList.add("deck");
-      container.appendChild(deckUl);
+  let openCards = [];
+  let count = 0;
+  let matchCounter = 0;
+  let starCount = 0;
+  let tens = 0;
+  let seconds = 0;
+  let minutes = 0;
+  let movesCount = 0;
 
-      for (let i = 0; i < deck.length; i++) {
-        const card = document.createElement("li");
-        card.classList.add("card");
-        card.innerHTML = `<i class="${deck[i]}"></i>`;
-        deckUl.appendChild(card);
-        click(card);
-      }
-      //     setInterval(timer, 10);
-    }
-    function click(target) {
-      target.addEventListener("click", function(event) {
-        if (timer.isRunning) {
-          console.log("hohohohohohohoh");
-          showTimer();
-        }
-        moves();
-        showCard(this);
-        compare(this);
-      });
-    }
+  const h1 = document.querySelector("h1");
+  const sec = document.querySelector("#seconds");
+  const min = document.querySelector("#minutes");
+  const stars = document.querySelector(".stars");
+  const timer = document.getElementById('timer');
+  const gameTimer = document.querySelector("#gameTimer");
+  const counter = document.querySelector(".moves");
+  const container = document.querySelector(".container");
 
-    function compare(card) {
-      if (openCards.length === 1) {
-        if (openCards[0].innerHTML === card.innerHTML) {
-          openCards[0].classList.add("match");
-          card.classList.add("match", "disabled");
+  let watch = new Stopwatch(timer);
+  // const container = document.querySelector(".deck");
+  function startTimer() {
+    console.log("oohhoooohhohoho");
+    timer.addEventListener("secondsUpdated", function(e) {
+      gameTimer.innerHTML = timer.getTimeValues().toString();
+    });
+  }
+
+  function displayCards() {
+    rsetCounters();
+    let deck = shuffle(cards);
+    const deckUl = document.createElement("ul");
+    deckUl.classList.add("deck");
+    container.appendChild(deckUl);
+
+    for (let i = 0; i < deck.length; i++) {
+      const card = document.createElement("li");
+      card.classList.add("card");
+      card.innerHTML = `<i class="${deck[i]}"></i>`;
+      deckUl.appendChild(card);
+      click(card);
+    }
+    //     setInterval(timer, 10);
+    restartGame();
+  }
+  function click(target) {
+    target.addEventListener("click", function(event) {
+      watch.isOn ? console.log('lupa') : watch.start();
+      moves();
+      //       showCard(this);
+      compare(this);
+    });
+  }
+
+  function compare(card) {
+
+    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
+      console.log('cards array is: ' + openCards.length)
+      showCard(card);
+      openCards.push(card);
+      //       card.classList.add('open', 'show');
+      if (openCards.length > 1) {
+        console.log('cards array is: ' + openCards.length)
+        if (openCards[0].innerHTML === openCards[1].innerHTML) {
+          console.log('cards array is: ' + openCards.length)
+          openCards[0].classList.add("match", "disabled");
+          openCards[1].classList.add("match", "disabled");
           openCards = [];
           matchCounterFn();
-        } else {
-          setTimeout(function() {
-            card.classList.remove("show", "open");
-          }, 500);
+        } else if (openCards[0].innerHTML !== openCards[1].innerHTML) {
+          console.log('cards array is: ' + openCards.length)
+          openCards = [];
+          console.log('cards array is: ' + openCards.length)
+
+          //         setTimeout(function() {
+          //           card.classList.remove("show", "open");
+          //         }, 500);
         }
       } else {
-        card.classList.add("disabled");
-        openCards.push(card);
+        //         openCards.push(card)
+        console.log('cards array is: ' + openCards.length)
+        click(card);
+
+        //       card.classList.add("disabled");
+
       }
     }
+  }
 
-    function showCard(card) {
-      card.classList.add("open", "show");
+  function showCard(card) {
+    card.classList.add("open", "show");
+    setTimeout(function() {
+      card.classList.remove("show", "open");
+    }, 500);
+  }
+
+  function moves() {
+    count += 1;
+
+    if (count % 2 == 0) {
+      movesCount++;
     }
+    counter.innerHTML = movesCount;
+    removeStar();
+  }
 
-    function moves() {
-      count += 1;
-      counter.innerHTML = count;
-      removeStar();
-    }
+  function matchCounterFn() {
+    matchCounter += 1;
+    console.log(matchCounter);
+    gameOver();
+  }
 
-    function matchCounterFn() {
-      matchCounter += 1;
-      console.log(matchCounter);
-      gameOver();
-    }
-
-    function restart() {
-      let restart = document.querySelector(".restart");
-      restart.addEventListener("click", function() {
-        if (container.querySelector(".deck")) {
-          container.removeChild(container.querySelector(".deck"));
-          displayCards();
-        } else {
-          displayCards();
-        }
-      });
-    }
-
-    function removeStar() {
-      const star = '<li><i class="fa fa-star"></i></li>';
-      count < 17
-        ? (stars.innerHTML = star.repeat(3))
-        : count < 25
-          ? (stars.innerHTML = star.repeat(2))
-          : count < 30
-            ? (stars.innerHTML = star.repeat(1))
-            : (h1.innerHTML = "Find a match!");
-    }
-
-    function rsetCounters() {
-      count = 0;
-      matchCounter = 0;
-      starCount = 0;
-      counter.innerHTML = count;
-      removeStar();
-      timer.reset();
-    }
-
-    function gameOver() {
-      if (matchCounter === 8) {
-        youWin();
-        endSummary();
-      }
-    }
-
-    function youWin() {
-      timer.stop();
-      h1.innerHTML = `You Won in ${count} moves!`;
-    }
-
-    function endSummary() {
-      // function that displays the end modal/results
-      console.log(container);
-      console.log(stars.innerHTML);
-      if (document.querySelector(".deck")) {
-        document.querySelector(".deck").style.display = "none";
-        document.querySelector(".score-panel").style.display = "none";
-      }
-      const star = '<i class="fa fa-star">';
-
-      const modal = document.createElement("ul");
-      modal.classList.add("modal");
-
-      const endRating = document.createElement("li");
-      endRating.classList.add("yourTime");
-
-      const endTime = document.createElement("li");
-      endTime.classList.add("yourRating");
-
-      const playAgain = document.createElement("button");
-      playAgain.classList.add("playAgain");
-
-      endRating.innerHTML = `Yo've earned: ${star.repeat(
-        stars.childElementCount
-      )}`;
-      endTime.innerHTML = `Your time is: ${gameTimer.innerHTML}`;
-      playAgain.innerHTML = "Play Again !?";
-      playAgain.addEventListener("click", function() {
-        document.querySelector(".modal").style.display = "none";
+  function restartGame() {
+    let restart = document.querySelector(".restart");
+    restart.addEventListener("click", function() {
+      if (container.querySelector(".deck")) {
+        container.removeChild(container.querySelector(".deck"));
         displayCards();
-      });
-      modal.appendChild(endRating);
-      modal.appendChild(endTime);
-      modal.appendChild(playAgain);
-      container.appendChild(modal);
-    }
-    restart();
-    displayCards();
-
-    function shuffle(array) {
-      let currentIndex = array.length;
-      let temporaryValue;
-      let randomIndex;
-
-      while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+      } else {
+        displayCards();
       }
+    });
+  }
 
-      return array;
+  function removeStar() {
+    const star = '<li><i class="fa fa-star"></i></li>';
+    count < 40 ? (stars.innerHTML = star.repeat(3)) : count < 44 ? (stars.innerHTML = star.repeat(2)) : count < 48 ? (stars.innerHTML = star.repeat(1)) : (h1.innerHTML = "Find a match!");
+  }
+
+  function rsetCounters() {
+    document.querySelector('.score-panel').style.display = 'block';
+
+    count = 0;
+    matchCounter = 0;
+    starCount = 0;
+    counter.innerHTML = count;
+    removeStar();
+    watch.stop();
+    watch.reset();
+    //       timer.reset();
+  }
+
+  function gameOver() {
+    if (matchCounter === 8) {
+      youWin();
+      endSummary();
+    }
+  }
+
+  function youWin() {
+    watch.stop();
+    h1.innerHTML = `You Won in ${count} moves!`;
+  }
+
+  function endSummary() {
+    // function that displays the end modal/results
+    console.log(container);
+    console.log(stars.innerHTML);
+    if (document.querySelector(".deck")) {
+      document.querySelector(".deck").style.display = "none";
+      document.querySelector(".score-panel").style.display = "none";
+    }
+    const star = '<i class="fa fa-star">';
+
+    const modal = document.createElement("ul");
+    modal.classList.add("modal");
+
+    const endRating = document.createElement("li");
+    endRating.classList.add("yourTime");
+
+    const endTime = document.createElement("li");
+    endTime.classList.add("yourRating");
+
+    const endMoves = document.createElement('li');
+    endMoves.classList.add('yourMoves');
+
+    const playAgain = document.createElement("button");
+    playAgain.classList.add("playAgain");
+
+    endRating.innerHTML = `Yo've earned: ${star.repeat(stars.childElementCount)}`;
+    endTime.innerHTML = `Your time is: ${timer.innerHTML}`;
+    playAgain.innerHTML = "Play Again !?";
+    endMoves.innerHTML = `Game completed in ${movesCount} moves`;
+    playAgain.addEventListener("click", function() {
+      // document.querySelector(".modal").style.display = "none";
+      container.removeChild(modal);
+      container.removeChild(document.querySelector('.deck'))
+      displayCards();
+      document.querySelector('h1').innerText = 'Find a Match!';
+    });
+    modal.appendChild(endRating);
+    modal.appendChild(endTime);
+    modal.appendChild(endMoves);
+    modal.appendChild(playAgain);
+
+    container.appendChild(modal);
+  }
+
+  displayCards();
+
+  function shuffle(array) {
+    let currentIndex = array.length;
+    let temporaryValue;
+    let randomIndex;
+
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
 
-    //   timer.start();
+    return array;
+  }
 
-    // function timer() {
-    //   tens++;
-    //
-    //   //     if(tens < 9){
-    //   //       time.innerHTML = "0" + tens;
-    //   //     }
-    //
-    //   //     if (tens > 9){
-    //   //       time.innerHTML = tens;
-    //
-    //   //     }
-    //
-    //   if (tens > 99) {
-    //     console.log("seconds");
-    //     seconds++;
-    //     sec.innerHTML = "0" + seconds;
-    //     tens = 0;
-    //     //       appendTens.innerHTML = "0" + 0;
-    //   }
-    //
-    //   if (seconds > 9) {
-    //     sec.innerHTML = seconds;
-    //   }
-    // }
-  },
-  false
-);
+  //   timer.start();
+
+  // function timer() {
+  //   tens++;
+  //
+  //   //     if(tens < 9){
+  //   //       time.innerHTML = "0" + tens;
+  //   //     }
+  //
+  //   //     if (tens > 9){
+  //   //       time.innerHTML = tens;
+  //
+  //   //     }
+  //
+  //   if (tens > 99) {
+  //     console.log("seconds");
+  //     seconds++;
+  //     sec.innerHTML = "0" + seconds;
+  //     tens = 0;
+  //     //       appendTens.innerHTML = "0" + 0;
+  //   }
+  //
+  //   if (seconds > 9) {
+  //     sec.innerHTML = seconds;
+  //   }
+  // }
+}, false);

@@ -14,7 +14,9 @@ This a card game in which all of the cards are laid face down on a surface and t
 
 ## Code dependencies
 
-This Project uses [Google Fonts](https://fonts.google.com/) for the game fonts and [Font Awesome](https://fontawesome.com/) for card icons.
++ [Google Fonts](https://fonts.google.com/) for the game fonts and
++ [Font Awesome](https://fontawesome.com/) for card icons.
++ [stopwatch](https://gist.github.com/anonymous/fe5cdd7e9cd14fea796b27d19f8d1cb6#file-stopwatch-js) by [Saad Quadri](https://github.com/saadq)
 
 ## TO-DO
 - [x] Display the cards on the page
