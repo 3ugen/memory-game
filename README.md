@@ -8,9 +8,9 @@ This a card game in which all of the cards are laid face down on a surface and t
 
 ## The game's rating logic:
 
-* If you match all cards in less than 10 moves you get 3 starts
-* If you match all cards in more than 10 and less than 15 moves you get 2 stars.
-* If you match all cards in more than 15 moves you get 1 star.
+* If you match all cards in less than 40 moves you get 3 starts
+* If you match all cards in more than 40 and less than 44 moves you get 2 stars.
+* If you match all cards in more than 44 moves you get 1 star.
 
 ## Code dependencies
 
