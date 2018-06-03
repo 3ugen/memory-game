@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
   function click(target) {
     target.addEventListener("click", function(event) {
       watch.isOn ? console.log('lupa') : watch.start();
-//       moves();
+      //       moves();
       //       showCard(this);
       compare(this);
     });
@@ -68,9 +68,9 @@ document.addEventListener("DOMContentLoaded", function() {
           openCards[1].classList.add('match');
           openCards = [];
           matchCounterFn();
-          
+
         } else {
-//           moves();
+          //           moves();
           setTimeout(function() {
             openCards.forEach(function(card) {
               card.classList.remove('open', 'show')
@@ -92,12 +92,12 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function moves() {
-//     count += 1;
+    //     count += 1;
 
-//     if (count % 2 == 0) {
-//       movesCount++;
-//     }
-//     counter.innerHTML = movesCount;
+    //     if (count % 2 == 0) {
+    //       movesCount++;
+    //     }
+    //     counter.innerHTML = movesCount;
     counter.innerHTML = ++count;
     removeStar();
   }
@@ -113,8 +113,10 @@ document.addEventListener("DOMContentLoaded", function() {
     restart.addEventListener("click", function() {
       if (container.querySelector(".deck")) {
         container.removeChild(container.querySelector(".deck"));
+
         displayCards();
       } else {
+
         displayCards();
       }
     });
@@ -127,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function rsetCounters() {
     document.querySelector('.score-panel').style.display = 'block';
-
+    openCards = [];
     count = 0;
     matchCounter = 0;
     starCount = 0;
