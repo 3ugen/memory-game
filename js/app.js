@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 document.addEventListener("DOMContentLoaded", function() {
-  const cards = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
+  const deck = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
   // let timer = new Timer();
 
   let openCards = [];
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function displayCards() {
     rsetCounters();
-    let deck = shuffle(cards);
+//     let deck = shuffle(cards);
     const deckUl = document.createElement("ul");
     deckUl.classList.add("deck");
     container.appendChild(deckUl);
@@ -50,44 +50,37 @@ document.addEventListener("DOMContentLoaded", function() {
   function click(target) {
     target.addEventListener("click", function(event) {
       watch.isOn ? console.log('lupa') : watch.start();
-      moves();
+//       moves();
       //       showCard(this);
       compare(this);
     });
   }
 
   function compare(card) {
-
-    if (!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')) {
-      console.log('cards array is: ' + openCards.length)
-      showCard(card);
-      openCards.push(card);
-      //       card.classList.add('open', 'show');
-      if (openCards.length > 1) {
-        console.log('cards array is: ' + openCards.length)
+    openCards.push(card);
+    if (!card.classList.contains('open') && !card.classList.contains('show')) {
+      console.log('bla');
+      card.classList.add('open', 'show');
+      if (openCards.length == 2) {
+        moves();
         if (openCards[0].innerHTML === openCards[1].innerHTML) {
-          console.log('cards array is: ' + openCards.length)
-          openCards[0].classList.add("match", "disabled");
-          openCards[1].classList.add("match", "disabled");
+          openCards[0].classList.add('match');
+          openCards[1].classList.add('match');
           openCards = [];
           matchCounterFn();
-        } else if (openCards[0].innerHTML !== openCards[1].innerHTML) {
-          console.log('cards array is: ' + openCards.length)
-          openCards = [];
-          console.log('cards array is: ' + openCards.length)
+          
+        } else {
+//           moves();
+          setTimeout(function() {
+            openCards.forEach(function(card) {
+              card.classList.remove('open', 'show')
+            })
+            openCards = [];
 
-          //         setTimeout(function() {
-          //           card.classList.remove("show", "open");
-          //         }, 500);
+          }, 800)
         }
-      } else {
-        //         openCards.push(card)
-        console.log('cards array is: ' + openCards.length)
-        click(card);
-
-        //       card.classList.add("disabled");
-
       }
+
     }
   }
 
@@ -99,12 +92,13 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   function moves() {
-    count += 1;
+//     count += 1;
 
-    if (count % 2 == 0) {
-      movesCount++;
-    }
-    counter.innerHTML = movesCount;
+//     if (count % 2 == 0) {
+//       movesCount++;
+//     }
+//     counter.innerHTML = movesCount;
+    counter.innerHTML = ++count;
     removeStar();
   }
 
@@ -128,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function removeStar() {
     const star = '<li><i class="fa fa-star"></i></li>';
-    count < 40 ? (stars.innerHTML = star.repeat(3)) : count < 44 ? (stars.innerHTML = star.repeat(2)) : count < 48 ? (stars.innerHTML = star.repeat(1)) : (h1.innerHTML = "Find a match!");
+    count < 20 ? (stars.innerHTML = star.repeat(3)) : count < 25 ? (stars.innerHTML = star.repeat(2)) : count < 30 ? (stars.innerHTML = star.repeat(1)) : (h1.innerHTML = "Find a match!");
   }
 
   function rsetCounters() {
@@ -184,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
     endRating.innerHTML = `Yo've earned: ${star.repeat(stars.childElementCount)}`;
     endTime.innerHTML = `Your time is: ${timer.innerHTML}`;
     playAgain.innerHTML = "Play Again !?";
-    endMoves.innerHTML = `Game completed in ${movesCount} moves`;
+    endMoves.innerHTML = `Game completed in ${count} moves`;
     playAgain.addEventListener("click", function() {
       // document.querySelector(".modal").style.display = "none";
       container.removeChild(modal);
