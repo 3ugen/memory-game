@@ -1,6 +1,6 @@
 /*jshint esversion: 6 */
 document.addEventListener("DOMContentLoaded", function() {
-  const deck = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
+  const cards = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
   // let timer = new Timer();
 
   let openCards = [];
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function displayCards() {
     rsetCounters();
-//     let deck = shuffle(cards);
+    let deck = shuffle(cards);
     const deckUl = document.createElement("ul");
     deckUl.classList.add("deck");
     container.appendChild(deckUl);
