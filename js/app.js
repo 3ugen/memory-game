@@ -1,20 +1,13 @@
 /*jshint esversion: 6 */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const cards = ["fa fa-paper-plane-o", "fa fa-paper-plane-o", "fa fa-diamond", "fa fa-diamond", "fa fa-bicycle", "fa fa-bicycle", "fa fa-anchor", "fa fa-anchor", "fa fa-bolt", "fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-leaf", "fa fa-leaf", "fa fa-bomb", "fa fa-bomb"];
   // let timer = new Timer();
 
   let openCards = [];
   let count = 0;
   let matchCounter = 0;
-  let starCount = 0;
-  let tens = 0;
-  let seconds = 0;
-  let minutes = 0;
-  let movesCount = 0;
 
   const h1 = document.querySelector("h1");
-  const sec = document.querySelector("#seconds");
-  const min = document.querySelector("#minutes");
   const stars = document.querySelector(".stars");
   const timer = document.getElementById('timer');
   const gameTimer = document.querySelector("#gameTimer");
@@ -22,13 +15,6 @@ document.addEventListener("DOMContentLoaded", function() {
   const container = document.querySelector(".container");
 
   let watch = new Stopwatch(timer);
-  // const container = document.querySelector(".deck");
-  function startTimer() {
-    console.log("oohhoooohhohoho");
-    timer.addEventListener("secondsUpdated", function(e) {
-      gameTimer.innerHTML = timer.getTimeValues().toString();
-    });
-  }
 
   function displayCards() {
     rsetCounters();
@@ -44,14 +30,12 @@ document.addEventListener("DOMContentLoaded", function() {
       deckUl.appendChild(card);
       click(card);
     }
-    //     setInterval(timer, 10);
     restartGame();
   }
+
   function click(target) {
-    target.addEventListener("click", function(event) {
+    target.addEventListener("click", function () {
       watch.isOn ? console.log('lupa') : watch.start();
-      //       moves();
-      //       showCard(this);
       compare(this);
     });
   }
@@ -70,9 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
           matchCounterFn();
 
         } else {
-          //           moves();
-          setTimeout(function() {
-            openCards.forEach(function(card) {
+          setTimeout(function () {
+            openCards.forEach(function (card) {
               card.classList.remove('open', 'show')
             })
             openCards = [];
@@ -84,20 +67,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  function showCard(card) {
-    card.classList.add("open", "show");
-    setTimeout(function() {
-      card.classList.remove("show", "open");
-    }, 500);
-  }
 
   function moves() {
-    //     count += 1;
-
-    //     if (count % 2 == 0) {
-    //       movesCount++;
-    //     }
-    //     counter.innerHTML = movesCount;
     counter.innerHTML = ++count;
     removeStar();
   }
@@ -110,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function restartGame() {
     let restart = document.querySelector(".restart");
-    restart.addEventListener("click", function() {
+    restart.addEventListener("click", function () {
       if (container.querySelector(".deck")) {
         container.removeChild(container.querySelector(".deck"));
 
@@ -137,7 +108,6 @@ document.addEventListener("DOMContentLoaded", function() {
     removeStar();
     watch.stop();
     watch.reset();
-    //       timer.reset();
   }
 
   function gameOver() {
@@ -181,8 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
     endTime.innerHTML = `Your time is: ${timer.innerHTML}`;
     playAgain.innerHTML = "Play Again !?";
     endMoves.innerHTML = `Game completed in ${count} moves`;
-    playAgain.addEventListener("click", function() {
-      // document.querySelector(".modal").style.display = "none";
+    playAgain.addEventListener("click", function () {
       container.removeChild(modal);
       container.removeChild(document.querySelector('.deck'))
       displayCards();
@@ -214,30 +183,4 @@ document.addEventListener("DOMContentLoaded", function() {
     return array;
   }
 
-  //   timer.start();
-
-  // function timer() {
-  //   tens++;
-  //
-  //   //     if(tens < 9){
-  //   //       time.innerHTML = "0" + tens;
-  //   //     }
-  //
-  //   //     if (tens > 9){
-  //   //       time.innerHTML = tens;
-  //
-  //   //     }
-  //
-  //   if (tens > 99) {
-  //     console.log("seconds");
-  //     seconds++;
-  //     sec.innerHTML = "0" + seconds;
-  //     tens = 0;
-  //     //       appendTens.innerHTML = "0" + 0;
-  //   }
-  //
-  //   if (seconds > 9) {
-  //     sec.innerHTML = seconds;
-  //   }
-  // }
 }, false);
